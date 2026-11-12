@@ -4,6 +4,7 @@ import requests
 from handlers import get_updates, send_message, send_photo, get_randomcat_image
 
 def main() -> None:
+    print('Bot ishga tushdi...')
     last_update_id = None
     while True:
         updates = get_updates(offset=last_update_id)
@@ -17,7 +18,10 @@ def main() -> None:
                 send_message(chat_id, f'Salom {first_name} botga xush kelibsiz, mushuk rasmini olish uchun /cat degan yozing.')
             elif text == '/cat':
                 url = get_randomcat_image()
-                send_photo(chat_id, url)
+                if url:
+                    send_photo(chat_id, url)
+                else:
+                    send_message(chat_id, "Rasm olib bo'lmadi, keyinroq urinib ko'ring.")
 
             last_update_id = update['update_id'] + 1
 
