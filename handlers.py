@@ -37,16 +37,8 @@ def get_randomcat_image() -> str:
     response = requests.get(url)
 
     if response.status_code == 200:
-        # Agar javob JSON formatida kelsa
-        try:
-            data = response.json()
-            image_path = data.get('url', '')
-            if image_path:
-                return f'https://cataas.com{image_path}'
-        except:
-            pass
-        
-        # Agar to'g'ri kelmasa, rasmning o'zining URL manzilini qaytaradi
-        return response.url
+        data = response.json()
+        image_path = data.get('url', '')
+        return f'https://cataas.com{image_path}'
         
     return ''
